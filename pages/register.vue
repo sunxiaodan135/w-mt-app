@@ -144,7 +144,47 @@
             }
         },
         methods:{
-            sendMsg() {},
+            sendMsg() {
+                const self = this
+                let namePass
+                let emailPass
+                if (self.timeid) {
+                    return false
+                }
+                this.$refs['ruleForm'].validateField('name', valid => {
+                    namePass = valid
+                })
+                self.statusMsg = ''
+                if (namePass) {
+                    //有值是错误的
+                    return false
+                }
+                this.$refs['ruleForm'].validateField('email', valid => {
+                    emailPass = valid
+                })
+                if (!namePass && !emailPass) {
+                    self.$axios
+                        .post('http://localhost:3000/users/verify', {
+                            username: encodeURIComponent(self.ruleForm.name),//中文编码
+                            email: self.ruleForm.email
+                        })
+                        .then(({ status, data }) => {
+                            if (status === 200 && data && data.code === 0) {
+                                let count = 60
+                                self.statusMsg = `验证码已发送，剩余${count--}秒`
+                                self.timeid = setInterval(() => {
+                                    self.statusMsg = `验证码已发送，剩余${count--}秒`
+                                    if (count === 0) {
+                                        clearInterval(self.timeid)
+                                    }
+                                }, 1000)
+                            } else {
+                                self.statusMsg = data.msg
+                            }
+                        })
+                }
+
+            },
             register(){
 
             }
