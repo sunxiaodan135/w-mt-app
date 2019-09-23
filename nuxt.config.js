@@ -62,5 +62,5 @@ module.exports = {
     extend (config, ctx) {
     }
   },
-  cache:false
+  cache:true
 }

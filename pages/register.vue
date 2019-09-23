@@ -83,6 +83,7 @@
 </template>
 
 <script>
+    import CryptoJS from 'crypto-js'
     export default {
         layout:'blank',
         name: "register",
@@ -186,7 +187,33 @@
 
             },
             register(){
-
+                let self = this
+                //验证校验规则
+                this.$refs['ruleForm'].validate(valid => {
+                    if (valid) {
+                        self.$axios
+                            .post('http://localhost:3000/users/signup', {
+                                username: window.encodeURIComponent(self.ruleForm.name),//对中文进行编码
+                                password: CryptoJS.MD5(self.ruleForm.pwd).toString(),//MD5加密密码
+                                email: self.ruleForm.email,
+                                code: self.ruleForm.code
+                            })
+                            .then(({ status, data }) => {
+                                if (status === 200) {
+                                    if (data && data.code === 0) {
+                                        location.href = '/login'
+                                    } else {
+                                        self.error = data.msg
+                                    }
+                                } else {
+                                    self.error = `服务器出错，错误码：${status}`
+                                }
+                                setTimeout(() => {
+                                    self.error = ''
+                                }, 1500)
+                            })
+                    }
+                })
             }
 
 
