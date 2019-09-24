@@ -10,10 +10,12 @@ import json from 'koa-json'
 import dbConfig from './dbs/config'
 import passport from './interface/utils/passport'
 import users from './interface/users'
+import geo from './interface/geo'
+
 
 const app = new Koa()
-const host = process.env.HOST || '127.0.0.1'
-const port = process.env.PORT || 3000
+// const host = process.env.HOST || '127.0.0.1'
+// const port = process.env.PORT || 3000
 app.keys = ['mt', 'keyskeys']
 app.proxy = true
 app.use(
@@ -48,10 +50,10 @@ async function start () {
   // Instantiate nuxt.js
   const nuxt = new Nuxt(config)
 
-  // const {
-  //   host = process.env.HOST || '127.0.0.1',
-  //   port = process.env.PORT || 3000
-  // } = nuxt.options.server
+  const {
+    host = process.env.HOST || '127.0.0.1',
+    port = process.env.PORT || 3000
+  } = nuxt.options.server
 
   // Build in development
   if (config.dev) {
@@ -61,6 +63,7 @@ async function start () {
     await nuxt.ready()
   }
   app.use(users.routes()).use(users.allowedMethods())
+  app.use(geo.routes()).use(geo.allowedMethods())
 
   app.use((ctx) => {
     ctx.status = 200
