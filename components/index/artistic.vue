@@ -29,7 +29,7 @@
             >品质出游</dd>
         </dl>
 
-        <ul class="ibody">
+        <ul class="ibody" v-loading="loading">
             <li
                     v-for="item in cur"
                     :key="item.title"
@@ -57,6 +57,7 @@
         data: () => {
             return {
                 kind: 'all',
+                loading:false,
                 list: {
                     all: [],
                     part: [],
@@ -72,63 +73,68 @@
             }
         },
         async mounted() {
-            // let self = this
-            // let {
-            //     status,
-            //     data: { count, pois }
-            // } = await self.$axios.get('search/resultsByKeywords', {
-            //     params: {
-            //         keyword: '景点',
-            //         city: self.$store.state.geo.position.city
-            //     }
-            // })
-            // if (status === 200 && count > 0) {
-            //     let r = pois.filter(item => item.photos.length).map(item => {
-            //         return {
-            //             title: item.name,
-            //             pos: item.type.split(';')[0],
-            //             price: item.biz_ext.cost || '暂无',
-            //             img: item.photos[0].url,
-            //             url: '//abc.com'
-            //         }
-            //     })
-            //     self.list[self.kind] = r.slice(0, 9)
-            // } else {
-            //     self.list[self.kind] = []
-            // }
+
+            let self = this
+            let {
+                status,
+                data: { count, pois }
+            } = await self.$axios.get('/search/resultsByKeywords', {
+                params: {
+                    keyword: '景点',
+                    city: self.$store.state.geo.position.city
+                }
+            })
+            if (status === 200 && count > 0) {
+                let r = pois.filter(item => item.photos.length).map(item => {
+                    return {
+                        title: item.name,
+                        pos: item.type.split(';')[0],
+                        price: item.biz_ext.cost || '暂无',
+                        img: item.photos[0].url,
+                        url: '//abc.com'
+                    }
+                })
+                self.list[self.kind] = r.slice(0, 9)
+            } else {
+                self.list[self.kind] = []
+            }
         },
         methods: {
             async over(e) {
-                // let dom = e.target
-                // let tag = dom.tagName.toLowerCase()
-                // let self = this
-                // if (tag === 'dd') {
-                //     this.kind = dom.getAttribute('kind')
-                //     let keyword = dom.getAttribute('keyword')
-                //     let {
-                //         status,
-                //         data: { count, pois }
-                //     } = await self.$axios.get('search/resultsByKeywords', {
-                //         params: {
-                //             keyword,
-                //             city: self.$store.state.geo.position.city
-                //         }
-                //     })
-                //     if (status === 200 && count > 0) {
-                //         let r = pois.filter(item => item.photos.length).map(item => {
-                //             return {
-                //                 title: item.name,
-                //                 pos: item.type.split(';')[0],
-                //                 price: item.biz_ext.cost || '暂无',
-                //                 img: item.photos[0].url,
-                //                 url: '//abc.com'
-                //             }
-                //         })
-                //         self.list[self.kind] = r.slice(0, 9)
-                //     } else {
-                //         self.list[self.kind] = []
-                //     }
-                // }
+                this.loading=true
+                let dom = e.target
+                let tag = dom.tagName.toLowerCase()
+                let self = this
+                if (tag === 'dd') {
+                    this.kind = dom.getAttribute('kind')
+                    let keyword = dom.getAttribute('keyword')
+                    let {
+                        status,
+                        data: { count, pois }
+                    } = await self.$axios.get('/search/resultsByKeywords', {
+                        params: {
+                            keyword,
+                            city: self.$store.state.geo.position.city
+                        }
+                    })
+                    if (status === 200 && count > 0) {
+                        //过滤掉没有图片的数据
+                        let r = pois.filter(item => item.photos.length).map(item => {
+                            return {
+                                //map映射，为了防止前后端命名不一致
+                                title: item.name,
+                                pos: item.type.split(';')[0],
+                                price: item.biz_ext.cost || '暂无',
+                                img: item.photos[0].url,
+                                url: '//abc.com'
+                            }
+                        })
+                        self.list[self.kind] = r.slice(0, 9)
+                    } else {
+                        self.list[self.kind] = []
+                    }
+                    this.loading=false
+                }
             }
         }
     }

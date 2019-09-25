@@ -6,7 +6,7 @@
         >
             <dt>全部分类</dt>
             <dd
-                    v-for="(item, index) in menu"
+                    v-for="(item, index) in  $store.state.home.menu "
                     :key="index"
                     @mouseenter="enter"
             >
@@ -72,7 +72,7 @@
         },
         computed: {
             curdetail() {
-                return this.menu.filter(
+                return this.$store.state.home.menu.filter(
                     item => item.type === this.kind
                 )[0]
             }
