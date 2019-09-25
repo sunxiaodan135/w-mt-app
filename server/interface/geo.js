@@ -1,15 +1,12 @@
 import Router from 'koa-router'
 import axios from './utils/axios'
-<<<<<<< HEAD
-import Province from '../dbs/models/province'
-=======
 
->>>>>>> 89e936dd289e4c8ab5c14c35700dd312fb210aa5
+import Province from '../dbs/models/province'
+
 let router = new Router({
     prefix: '/geo'
 })
 
-<<<<<<< HEAD
 router.get('/getPosition', async (ctx) => {
     let {
         status,
@@ -71,7 +68,6 @@ router.get('/province', async ctx => {
         province: status === 200 ? province : []
     }
 })
-=======
 router.get('/getPosition', ctx => {
     // let {
     //     status,
@@ -121,7 +117,6 @@ router.get('/getPosition', ctx => {
 //         province: status === 200 ? province : []
 //     }
 // })
->>>>>>> 89e936dd289e4c8ab5c14c35700dd312fb210aa5
 //
 // router.get('/province/:id', async ctx => {
 //     // let city = await City.findOne({id: ctx.params.id})
@@ -148,11 +143,7 @@ router.get('/getPosition', ctx => {
 //         }
 //     }
 // })
-<<<<<<< HEAD
 //获得城市接口
-=======
-//
->>>>>>> 89e936dd289e4c8ab5c14c35700dd312fb210aa5
 // router.get('/city', async ctx => {
 //     // let city = []
 //     // let result = await City.find()
@@ -221,8 +212,4 @@ router.get('/getPosition', ctx => {
 //         }
 //     }
 // })
-<<<<<<< HEAD
 export default router
-=======
-export default router
->>>>>>> 89e936dd289e4c8ab5c14c35700dd312fb210aa5
