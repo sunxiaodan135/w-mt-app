@@ -1,10 +1,15 @@
 import Router from 'koa-router'
 import axios from './utils/axios'
+<<<<<<< HEAD
 import Province from '../dbs/models/province'
+=======
+
+>>>>>>> 89e936dd289e4c8ab5c14c35700dd312fb210aa5
 let router = new Router({
     prefix: '/geo'
 })
 
+<<<<<<< HEAD
 router.get('/getPosition', async (ctx) => {
     let {
         status,
@@ -66,6 +71,57 @@ router.get('/province', async ctx => {
         province: status === 200 ? province : []
     }
 })
+=======
+router.get('/getPosition', ctx => {
+    // let {
+    //     status,
+    //     data: { province, city }
+    // } = await {'province':'北京市','city':'天津市 '}
+
+        ctx.body =
+        {'province':'北京市','city':'天津市 '}
+
+})
+//
+// router.get('/menu', async ctx => {
+//     // const result = await Menu.findOne()
+//     // ctx.body = {
+//     //   menu: result.menu
+//     // }
+//     let {
+//         status,
+//         data: { menu }
+//     } = await axios.get(`http://cp-tools.cn/geo/menu?sign=${sign}`)
+//     if (status === 200) {
+//         ctx.body = {
+//             menu
+//         }
+//     } else {
+//         ctx.body = {
+//             menu: []
+//         }
+//     }
+// })
+//
+// router.get('/province', async ctx => {
+//     // let province = await Province.find()
+//     // ctx.body = {
+//     //   province: province.map(item => {
+//     //     return {
+//     //       id: item.id,
+//     //       name: item.value[0]
+//     //     }
+//     //   })
+//     // }
+//     let {
+//         status,
+//         data: { province }
+//     } = await axios.get(`http://cp-tools.cn/geo/province?sign=${sign}`)
+//     ctx.body = {
+//         province: status === 200 ? province : []
+//     }
+// })
+>>>>>>> 89e936dd289e4c8ab5c14c35700dd312fb210aa5
 //
 // router.get('/province/:id', async ctx => {
 //     // let city = await City.findOne({id: ctx.params.id})
@@ -92,7 +148,11 @@ router.get('/province', async ctx => {
 //         }
 //     }
 // })
+<<<<<<< HEAD
 //获得城市接口
+=======
+//
+>>>>>>> 89e936dd289e4c8ab5c14c35700dd312fb210aa5
 // router.get('/city', async ctx => {
 //     // let city = []
 //     // let result = await City.find()
@@ -161,4 +221,8 @@ router.get('/province', async ctx => {
 //         }
 //     }
 // })
+<<<<<<< HEAD
 export default router
+=======
+export default router
+>>>>>>> 89e936dd289e4c8ab5c14c35700dd312fb210aa5

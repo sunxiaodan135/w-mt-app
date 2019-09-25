@@ -19,4 +19,8 @@ export default {
     state,
     mutations,
     actions
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> 89e936dd289e4c8ab5c14c35700dd312fb210aa5
