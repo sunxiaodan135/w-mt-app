@@ -54,8 +54,12 @@ export default {
             d[p] = []
           }
           d[p].push(item.name)
+
         }
-      })
+      }
+       
+      )
+       //console.log(d.a)
       for (let [k, v] of Object.entries(d)) {
         blocks.push({
           title: k.toUpperCase(),
@@ -64,6 +68,7 @@ export default {
       }
       blocks.sort((a, b) => a.title.charCodeAt(0) - b.title.charCodeAt(0))
       this.block = blocks
+      
     }
   }
 }

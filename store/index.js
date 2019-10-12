@@ -14,19 +14,19 @@ const store = () =>
             home
         },
         //ssr渲染
-        actions: {
-            async nuxtServerInit({ commit }, { req, app }) {
-                const {status,data: { province, city }} = await app.$axios.get('/geo/getPosition')
-                //    console.log(province,city)
-            geo
-        }},
+        // actions: {
+        //     async nuxtServerInit({ commit }, { req, app }) {
+        //         const {status,data: { province, city }} = await app.$axios.get('/geo/getPosition')
+        //         //    console.log(province,city)
+        //     geo
+        // }},
         actions: {
             async nuxtServerInit({ commit }, { req, app }) {
                 const {
                     status,
                     data: { province, city }
                 } = await app.$axios.get('/geo/getPosition')
-                console.log(province,city)
+                // console.log(province,city)
                 commit(
                     'geo/setPosition',
                     status === 200

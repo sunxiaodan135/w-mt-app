@@ -12,6 +12,8 @@ import passport from './interface/utils/passport'
 import users from './interface/users'
 import geo from './interface/geo'
 import search from './interface/search'
+import category from './interface/category'
+
 const app = new Koa()
 // const host = process.env.HOST || '127.0.0.1'
 // const port = process.env.PORT || 3000
@@ -64,6 +66,8 @@ async function start () {
   app.use(users.routes()).use(users.allowedMethods())
   app.use(geo.routes()).use(geo.allowedMethods())
   app.use(search.routes()).use(search.allowedMethods())
+  app.use(category.routes()).use(category.allowedMethods())
+
 
   app.use((ctx) => {
     ctx.status = 200
